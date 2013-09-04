@@ -1,0 +1,208 @@
+
+<!doctype html>
+<html>
+	<head>
+
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.slidepanel.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/jquery.slidepanel.css">
+		<script src="galleria/galleria-1.2.9.min.js"></script>
+
+
+
+
+	</head>
+
+	<body>
+
+
+
+		<a id="playerbutton" href="demo-02-bm.html" data-slidepanel="panel">Show Panel</a>
+
+		<script type="text/javascript">
+		      $(document).ready(function(){
+		          $('[data-slidepanel]').slidepanel({
+		              orientation: 'top',
+		              mode: 'push'
+		          });
+		      });
+		</script>
+
+
+		<div id="galleria">
+			</div>
+			<script>
+	            Galleria.loadTheme('galleria/themes/classic/galleria.classic.min.js');
+	            Galleria.configure({
+	            	trueFullscreen:false,
+	            	thumbnails: false,
+	            	showCounter: false,
+	            	wait: true,
+                    transition: 'flash',
+                    touchTransition: 'fadeslide',
+                    transitionSpeed: 1000
+
+	            })
+	            var data = [
+	            { image: "img/beachwedding.jpg"},
+	            { image: "img/cunningham.jpg"},
+	            { image: "img/claire.jpg"},
+	            { image: "img/shakespeare.jpg"},
+	            { image: "img/free.jpg"},
+	            { image: "img/allnations.jpg"},
+	            { image: "img/richdavis.jpg"},
+	            ];
+	            Galleria.ready(function(){this.enterFullscreen();});
+	            Galleria.run('#galleria', {
+					height: .5625,
+	            	dataSource: data,
+	            });
+	        </script>
+
+
+		<div id="slidepanel" class="cb_slide_panel panel_top" style="top: 0px; right: -318px; display: none;">
+
+
+			<div id="cwrap">
+                        <div id="nowPlay" class="is-audio">
+                            
+                            <div id="npTitle">DEEPER LOVE INTRO</div>
+                        </div>
+                        <div id="audiowrap">
+                            <div id="audio0">
+                                <audio id="audio1" controls="controls" src="./music/DEEPER LOVE INTRO.mp3">
+                                    Your browser does not support the HTML5 Audio Tag.
+                                </audio>
+                            </div>
+                            <noscript>Your browser does not support JavaScript or JavaScript has been disabled. You will need to enable JavaScript for this page.</noscript>
+                            <div id="extraControls" class="is-audio">
+                                <button id="btnPrev" class="ctrlbtn">|&lt;&lt;</button> <button id="btnNext" class="ctrlbtn">&gt;&gt;|</button>
+                            </div>
+                        </div>
+                        <div id="plwrap" class="is-audio">
+
+                        </div>
+                    </div>
+
+
+	
+
+
+
+
+
+
+
+
+
+			<div class="wrapper"><a href="#" class="close" style="display: none;">Close</a><div class="inner"><div class="wrapper"></div></div></div></div>
+
+
+
+
+<script>window.jQuery || document.write('<script src="/js/libs/jquery-1.8.0.min.js"><\/script>')</script>
+        <script type="text/javascript">
+            jQuery(function($) {
+                var supportsAudio = !!document.createElement('audio').canPlayType;
+                if(supportsAudio) {
+                    var index = 0,
+                    playing = false;
+                    mediaPath = './music/',
+                    extension = '',
+                    tracks = [
+                        {"track":1,"name":"Intro","length":"00:55","file":"DEEPER LOVE INTRO"},
+                        {"track":2,"name":"7 sampled","length":"00:37","file":"7 sampled"}
+                    ],
+                    trackCount = tracks.length,
+                    npAction = $('#npAction'),
+                    npTitle = $('#npTitle'),
+                    audio = $('#audio1').bind('play', function() {
+                        playing = true;
+                        npAction.text('Now Playing:');
+                    }).bind('pause', function() {
+                        playing = false;
+                        npAction.text('Paused:');
+                    }).bind('ended', function() {
+                        npAction.text('Paused:');
+                        if((index + 1) < trackCount) {
+                            index++;
+                            loadTrack(index);
+                            audio.play();
+                        } else {
+                            audio.pause();
+                            index = 0;
+                            loadTrack(index);
+                        }
+                    }).get(0),
+                    btnPrev = $('#btnPrev').click(function() {
+                        if((index - 1) > -1) {
+                            index--;
+                            loadTrack(index);
+                            if(playing) {
+                                audio.play();
+                            }
+                        } else {
+                            audio.pause();
+                            index = 0;
+                            loadTrack(index);
+                        }
+                    }),
+                    btnNext = $('#btnNext').click(function() {
+                        if((index + 1) < trackCount) {
+                            index++;
+                            loadTrack(index);
+                            if(playing) {
+                                audio.play();
+                            }
+                        } else {
+                            audio.pause();
+                            index = 0;
+                            loadTrack(index);
+                        }
+                    }),
+                    li = $('#plUL li').click(function() {
+                        var id = parseInt($(this).index());
+                        if(id !== index) {
+                            playTrack(id);
+                        }
+                    }),
+                    loadTrack = function(id) {
+                        $('.plSel').removeClass('plSel');
+                        $('#plUL li:eq(' + id + ')').addClass('plSel');
+                        npTitle.text(tracks[id].name);
+                        index = id;
+                        audio.src = mediaPath + tracks[id].file + extension;
+                    },
+                    playTrack = function(id) {
+                        loadTrack(id);
+                        audio.play();
+                    };
+                    
+                    extension = audio.canPlayType('audio/mpeg') ? '.mp3' : audio.canPlayType('audio/ogg') ? '.ogg' : '';
+
+                    loadTrack(index);
+                }
+
+                $('#useLegend').click(function(e) {
+                    e.preventDefault();
+                    $('#use').slideToggle(300, function() {
+                        $('#useSpanSpan').text(($('#use').css('display') == 'none' ? 'show' : 'hide'));
+                    });
+                });
+            });
+        </script>
+    
+
+
+
+
+
+
+
+
+	</body>
+
+
+
+</html>
