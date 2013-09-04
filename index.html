@@ -7,7 +7,37 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 		<script type="text/javascript" src="js/jquery.slidepanel.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.slidepanel.css">
+        <link href="skin/blue.monday/jplayer.blue.monday.css" rel="stylesheet" type="text/css" />
 		<script src="galleria/galleria-1.2.9.min.js"></script>
+
+        <script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
+        <script type="text/javascript" src="js/jplayer.playlist.min.js"></script>
+        <script type="text/javascript">
+//<![CDATA[
+$(document).ready(function(){
+
+    new jPlayerPlaylist({
+        jPlayer: "#jquery_jplayer_1",
+        cssSelectorAncestor: "#jp_container_1"
+    }, [
+        {
+            title:"7 sampled",
+            mp3:"music/7 sampled.mp3"
+        },
+        {
+            title:"intro",
+            mp3:"music/DEEPER LOVE INTRO.mp3"
+        }
+    ], {
+        swfPath: "js",
+        supplied: "oga, mp3",
+        wmode: "window",
+        smoothPlayBar: true,
+        keyEnabled: false
+    });
+});
+//]]>
+</script>
 
 
 
@@ -64,30 +94,52 @@
 		<div id="slidepanel" class="cb_slide_panel panel_top" style="top: 0px; right: -318px; display: none;">
 
 
-			<div id="cwrap">
-                        <div id="nowPlay" class="is-audio">
-                            
-                            <div id="npTitle">DEEPER LOVE INTRO</div>
-                        </div>
-                        <div id="audiowrap">
-                            <div id="audio0">
-                                <audio id="audio1" controls="controls" src="./music/DEEPER LOVE INTRO.mp3">
-                                    Your browser does not support the HTML5 Audio Tag.
-                                </audio>
-                            </div>
-                            <noscript>Your browser does not support JavaScript or JavaScript has been disabled. You will need to enable JavaScript for this page.</noscript>
-                            <div id="extraControls" class="is-audio">
-                                <button id="btnPrev" class="ctrlbtn">|&lt;&lt;</button> <button id="btnNext" class="ctrlbtn">&gt;&gt;|</button>
-                            </div>
-                        </div>
-                        <div id="plwrap" class="is-audio">
 
+        <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+
+        <div id="jp_container_1" class="jp-audio">
+            <div class="jp-type-playlist">
+                <div class="jp-gui jp-interface">
+                    <ul class="jp-controls">
+                        <li><a href="javascript:;" class="jp-previous" tabindex="1">previous</a></li>
+                        <li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
+                        <li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
+                        <li><a href="javascript:;" class="jp-next" tabindex="1">next</a></li>
+                        <li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
+                        <li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a></li>
+                        <li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a></li>
+                        <li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max volume</a></li>
+                    </ul>
+                    <div class="jp-progress">
+                        <div class="jp-seek-bar">
+                            <div class="jp-play-bar"></div>
                         </div>
                     </div>
-
-
-	
-
+                    <div class="jp-volume-bar">
+                        <div class="jp-volume-bar-value"></div>
+                    </div>
+                    <div class="jp-time-holder">
+                        <div class="jp-current-time"></div>
+                        <div class="jp-duration"></div>
+                    </div>
+                    <ul class="jp-toggles">
+                        <li><a href="javascript:;" class="jp-shuffle" tabindex="1" title="shuffle">shuffle</a></li>
+                        <li><a href="javascript:;" class="jp-shuffle-off" tabindex="1" title="shuffle off">shuffle off</a></li>
+                        <li><a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat">repeat</a></li>
+                        <li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off">repeat off</a></li>
+                    </ul>
+                </div>
+                <div class="jp-playlist">
+                    <ul>
+                        <li></li>
+                    </ul>
+                </div>
+                <div class="jp-no-solution">
+                    <span>Update Required</span>
+                    To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+                </div>
+            </div>
+        </div>
 
 
 
@@ -97,103 +149,6 @@
 
 
 			<div class="wrapper"><a href="#" class="close" style="display: none;">Close</a><div class="inner"><div class="wrapper"></div></div></div></div>
-
-
-
-
-<script>window.jQuery || document.write('<script src="/js/libs/jquery-1.8.0.min.js"><\/script>')</script>
-        <script type="text/javascript">
-            jQuery(function($) {
-                var supportsAudio = !!document.createElement('audio').canPlayType;
-                if(supportsAudio) {
-                    var index = 0,
-                    playing = false;
-                    mediaPath = './music/',
-                    extension = '',
-                    tracks = [
-                        {"track":1,"name":"Intro","length":"00:55","file":"DEEPER LOVE INTRO"},
-                        {"track":2,"name":"7 sampled","length":"00:37","file":"7 sampled"}
-                    ],
-                    trackCount = tracks.length,
-                    npAction = $('#npAction'),
-                    npTitle = $('#npTitle'),
-                    audio = $('#audio1').bind('play', function() {
-                        playing = true;
-                        npAction.text('Now Playing:');
-                    }).bind('pause', function() {
-                        playing = false;
-                        npAction.text('Paused:');
-                    }).bind('ended', function() {
-                        npAction.text('Paused:');
-                        if((index + 1) < trackCount) {
-                            index++;
-                            loadTrack(index);
-                            audio.play();
-                        } else {
-                            audio.pause();
-                            index = 0;
-                            loadTrack(index);
-                        }
-                    }).get(0),
-                    btnPrev = $('#btnPrev').click(function() {
-                        if((index - 1) > -1) {
-                            index--;
-                            loadTrack(index);
-                            if(playing) {
-                                audio.play();
-                            }
-                        } else {
-                            audio.pause();
-                            index = 0;
-                            loadTrack(index);
-                        }
-                    }),
-                    btnNext = $('#btnNext').click(function() {
-                        if((index + 1) < trackCount) {
-                            index++;
-                            loadTrack(index);
-                            if(playing) {
-                                audio.play();
-                            }
-                        } else {
-                            audio.pause();
-                            index = 0;
-                            loadTrack(index);
-                        }
-                    }),
-                    li = $('#plUL li').click(function() {
-                        var id = parseInt($(this).index());
-                        if(id !== index) {
-                            playTrack(id);
-                        }
-                    }),
-                    loadTrack = function(id) {
-                        $('.plSel').removeClass('plSel');
-                        $('#plUL li:eq(' + id + ')').addClass('plSel');
-                        npTitle.text(tracks[id].name);
-                        index = id;
-                        audio.src = mediaPath + tracks[id].file + extension;
-                    },
-                    playTrack = function(id) {
-                        loadTrack(id);
-                        audio.play();
-                    };
-                    
-                    extension = audio.canPlayType('audio/mpeg') ? '.mp3' : audio.canPlayType('audio/ogg') ? '.ogg' : '';
-
-                    loadTrack(index);
-                }
-
-                $('#useLegend').click(function(e) {
-                    e.preventDefault();
-                    $('#use').slideToggle(300, function() {
-                        $('#useSpanSpan').text(($('#use').css('display') == 'none' ? 'show' : 'hide'));
-                    });
-                });
-            });
-        </script>
-    
-
 
 
 
